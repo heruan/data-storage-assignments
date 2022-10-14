@@ -1,0 +1,6 @@
+Your task: Validate the data to garbage from entering the system!
+- Is all the required data present?
+- Is the personal identification number ("hetu") valid for this person?
+- Is the phone number in a valid format?
+- Is the e-mail address in a valid format?
+- Is the postal address in a valid format?

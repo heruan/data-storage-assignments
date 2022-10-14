@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package org.example.api.messagesender.services;
+
+option java_multiple_files = true;
+
+import "contact.proto";
+import "time.proto";
+
+message SendMessageCommand {
+  repeated org.example.api.contact.EmailAddress to = 1;
+  repeated org.example.api.contact.EmailAddress cc = 2;
+  repeated org.example.api.contact.EmailAddress bcc = 3;
+  string subject = 4;
+  string body = 5;
+}
+
+message MessageQueueNumber {
+  int64 id = 1;
+}
+
+message SendMessageCommandResponse {
+  org.example.api.time.Timestamp timestamp = 1;
+  oneof either {
+    MessageQueueNumber accepted = 2;
+    string refused = 3;
+  }
+}
+
+message MessageStatusQuery {
+  MessageQueueNumber queueNumber = 1;
+}
+
+enum MessageStatus {
+  PENDING = 0;
+  SENDING = 1;
+  SENT = 2;
+  ERROR = 3;
+  NOT_FOUND = 4;
+}
+
+message MessageStatusQueryResponse {
+  MessageQueueNumber queueNumber = 1;
+  org.example.api.time.Timestamp timestamp = 2;
+  MessageStatus status = 3;
+}
+
+service MessageSenderService {
+  rpc sendMessage (SendMessageCommand) returns (SendMessageCommandResponse);
+  rpc getMessageStatus (MessageStatusQuery) returns (MessageStatusQueryResponse);
+}

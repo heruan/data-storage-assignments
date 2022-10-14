@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package org.example.api.patient.services;
+
+option java_multiple_files = true;
+
+import "time.proto";
+import "person.proto";
+
+message AddPersonCommand {
+  org.example.api.person.data.Person person = 1;
+}
+
+message PersonEntity {
+  int64 id = 1;
+  int64 version = 2;
+  org.example.api.time.Timestamp createdOn = 3;
+  org.example.api.time.Timestamp lastModifiedOn = 4;
+  org.example.api.person.data.Person data = 5;
+}
+
+message AddPersonCommandResponse {
+  org.example.api.time.Timestamp timestamp = 1;
+  oneof either {
+    PersonEntity success = 2;
+    string failure = 3;
+  }
+}
+
+message PersonQuery {
+  oneof criteria {
+    org.example.api.person.data.PersonalIdentityCode personalIdentityCode = 1;
+    org.example.api.time.Date dateOfBirth = 2;
+    string name = 3;
+  }
+}
+
+message PersonQueryResponse {
+  PersonQuery query = 1;
+  org.example.api.time.Timestamp timestamp = 2;
+  repeated PersonEntity result = 3;
+}
+
+service PersonalInformationService {
+  rpc addPerson (AddPersonCommand) returns (AddPersonCommandResponse);
+  rpc findPerson (PersonQuery) returns (PersonQueryResponse);
+}

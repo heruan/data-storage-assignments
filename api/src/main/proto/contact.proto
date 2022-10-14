@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package org.example.api.contact;
+
+option java_multiple_files = true;
+
+import "google/protobuf/wrappers.proto";
+
+message EmailAddress {
+  string emailAddress = 1;
+}
+
+message PhoneNumber {
+  string phoneNumber = 1;
+}
+
+message PostalAddress {
+  string streetAddress = 1;
+  string number = 2;
+  google.protobuf.StringValue specifier = 3;
+  string postalCode = 4;
+  string postOffice = 5;
+  google.protobuf.StringValue country = 6;
+}

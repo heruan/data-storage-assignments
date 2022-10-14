@@ -1,0 +1,2 @@
+Your task: Add support for digital shredding of sensitive personal data! You already have PersonEncryptionKey
+and PersonEncryptionKeyRepository to start with.

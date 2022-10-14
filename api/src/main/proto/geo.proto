@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package org.example.api.geo;
+
+option java_multiple_files = true;
+
+message Point {
+  double latitude = 1;
+  double longitude = 2;
+  int32 srid = 3;
+}

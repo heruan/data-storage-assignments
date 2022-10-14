@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package org.example.api.contacttracing;
+
+option java_multiple_files = true;
+
+import "contact.proto";
+import "geo.proto";
+import "time.proto";
+
+message ExposurePlace {
+
+}
+
+message Exposure {
+
+}

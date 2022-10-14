@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package org.example.api.person.data;
+
+option java_multiple_files = true;
+
+import "contact.proto";
+import "time.proto";
+
+enum Sex {
+  FEMALE = 0;
+  MALE = 1;
+  OTHER = 2;
+}
+
+enum Status {
+  ALIVE = 0;
+  DECEASED = 1;
+}
+
+message PersonalIdentityCode {
+  string code = 1;
+}
+
+message Person {
+  string surname = 1;
+  repeated string givenNames = 2;
+  org.example.api.time.Date dateOfBirth = 3;
+  org.example.api.time.Date dateOfDeath = 4;
+  Status status = 5;
+  Sex sex = 6;
+  PersonalIdentityCode personalIdentityCode = 7;
+  org.example.api.contact.EmailAddress emailAddress = 8;
+  org.example.api.contact.PhoneNumber phoneNumber = 9;
+  org.example.api.contact.PostalAddress postalAddress = 10;
+}
