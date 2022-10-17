@@ -1,0 +1,9 @@
+server:
+  port: 8002
+neo4j:
+  embedded:
+    directory: /tmp/contact-tracing-db
+org:
+  neo4j:
+    driver:
+      uri: bolt://localhost:7687

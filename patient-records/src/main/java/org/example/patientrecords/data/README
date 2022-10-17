@@ -1,6 +1,8 @@
 Your task: Validate the data to garbage from entering the system!
 - Is all the required data present?
-- Is the personal identification number ("hetu") valid for this person?
+- Is the (Finnish) personal identification number ("hetu") valid for this person?
 - Is the phone number in a valid format?
 - Is the e-mail address in a valid format?
 - Is the postal address in a valid format?
+
+Bonus task: How can you support non-Finnish citizens, like tourists or business travelers, being entered into the system?

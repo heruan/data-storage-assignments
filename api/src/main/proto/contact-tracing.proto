@@ -4,14 +4,58 @@ package org.example.api.contacttracing;
 
 option java_multiple_files = true;
 
-import "contact.proto";
 import "geo.proto";
 import "time.proto";
 
-message ExposurePlace {
-
+message DiseaseId {
+  int64 id = 1;
 }
 
-message Exposure {
+message PersonId {
+  int64 id = 1;
+}
 
+message ContagionId {
+  int64 id = 1;
+}
+
+message PotentialExposureId {
+  int64 id = 1;
+}
+
+message ConfirmContagionCommand {
+  PersonId person = 1;
+  DiseaseId disease = 2;
+  org.example.api.time.Date contagiousFrom = 3;
+  org.example.api.time.Date contagiousTo = 4;
+}
+
+message RecordPotentialExposureCommand {
+  PersonId person = 1;
+  org.example.api.geo.Point location = 2;
+  org.example.api.time.Timestamp from = 3;
+  org.example.api.time.Timestamp to = 4;
+}
+
+message RegisterPersonCommand {
+}
+
+message PotentialExposureQuery {
+  PersonId person = 1;
+  DiseaseId disease = 2;
+  org.example.api.time.Date from = 3;
+  org.example.api.time.Date to = 4;
+}
+
+message PotentialExposureQueryResponse {
+  PotentialExposureQuery query = 1;
+  org.example.api.time.Timestamp timestamp = 2;
+  bool potentiallyExposed = 3;
+}
+
+service ContactTracingService {
+  rpc registerPerson (RegisterPersonCommand) returns (PersonId);
+  rpc confirmContagion(ConfirmContagionCommand) returns (ContagionId);
+  rpc recordPotentialExposure(RecordPotentialExposureCommand) returns (PotentialExposureId);
+  rpc isPotentiallyExposed(PotentialExposureQuery) returns (PotentialExposureQueryResponse);
 }

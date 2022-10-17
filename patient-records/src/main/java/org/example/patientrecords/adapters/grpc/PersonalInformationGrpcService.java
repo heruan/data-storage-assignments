@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonalInformationGrpcService extends PersonalInformationServiceGrpc.PersonalInformationServiceImplBase {
@@ -164,7 +165,19 @@ public class PersonalInformationGrpcService extends PersonalInformationServiceGr
 
     @Override
     public void findPerson(PersonQuery request, StreamObserver<PersonQueryResponse> responseObserver) {
-        // TODO Implement me!
-        super.findPerson(request, responseObserver);
+        if (request.hasPersonalIdentityCode()) {
+            responseObserver.onNext(createResponse(request, personManagementPort.findByPersonalIdentityCode(request.getPersonalIdentityCode().getCode()).stream().collect(Collectors.toList())));
+        } else if (request.hasDateOfBirth()) {
+            responseObserver.onNext(createResponse(request, personManagementPort.findByDateOfBirth(TimeUtils.unwrapDate(request.getDateOfBirth()))));
+        } else if (request.hasName()) {
+            responseObserver.onNext(createResponse(request, personManagementPort.findByName(request.getName())));
+        }
+        responseObserver.onCompleted();
+    }
+
+    private PersonQueryResponse createResponse(PersonQuery query, List<Person> result) {
+        var builder = PersonQueryResponse.newBuilder();
+        builder.setQuery(query).setTimestamp(TimeUtils.wrapInstant(Instant.now())).addAllResult(result.stream().map(this::createPersonEntityDto).collect(Collectors.toList()));
+        return builder.build();
     }
 }

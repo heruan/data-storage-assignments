@@ -1,0 +1,6 @@
+Your task: Create a saga that is used by contact tracers when they are in touch with a new client for the first time.
+The saga should make sure that the client's personal information are available in the Patient Records app, and that
+there is an entry for the person in the Contact Tracing app. Finally, an e-mail message should be sent to the client,
+confirming that the records have been created (some kind of a receipt I guess).
+
+Feel free to change the APIs as needed and simulate/mock everything that is irrelevant to the completion of this task.
