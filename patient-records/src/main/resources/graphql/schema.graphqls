@@ -1,0 +1,9 @@
+type Query {
+    byPersonalIdentityCode(pic: String!): Person
+    people: [Person]
+}
+
+type Person {
+    id: ID!
+    lastname: String!
+}
