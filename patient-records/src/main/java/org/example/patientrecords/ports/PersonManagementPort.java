@@ -1,5 +1,9 @@
 package org.example.patientrecords.ports;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.example.patientrecords.data.Person;
 import org.example.patientrecords.data.PersonEncryptionKey;
 import org.example.patientrecords.data.PersonEncryptionKeyRepository;
@@ -7,10 +11,6 @@ import org.example.patientrecords.data.PersonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -29,6 +29,10 @@ public class PersonManagementPort {
         var savedPerson = personRepository.saveAndFlush(person); // Flush to trigger any database constraints
         personEncryptionKeyRepository.save(new PersonEncryptionKey(savedPerson));
         return savedPerson;
+    }
+
+    public Person updatePerson(Person person) {
+        return personRepository.saveAndFlush(person);
     }
 
     public Optional<Person> findByPersonalIdentityCode(String pic) {

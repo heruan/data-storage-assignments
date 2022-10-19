@@ -1,9 +1,10 @@
 package org.example.patientrecords.data;
 
-import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
+
 import java.time.LocalDate;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class TestDataGenerator {
@@ -36,5 +37,26 @@ public class TestDataGenerator {
         person.setPostalAddress(address);
 
         personRepository.saveAndFlush(person);
+
+        var other = new Person();
+        other.setSurname("Cool");
+        other.setGivenNames("Joella");
+        other.setDateOfBirth(LocalDate.of(1991, 11, 11));
+        other.setSex(Sex.OTHER);
+        other.setPersonalIdentityCode("11191-800B");
+        other.setEmailAddress("joella@foo.bar");
+        other.setPhoneNumber("+358407654321");
+
+        var otherAddress = new PostalAddress();
+        otherAddress.setStreet("Ruukinkatu");
+        otherAddress.setNumber("2-4");
+        otherAddress.setSpecifier("The dark little cell in the basement");
+        otherAddress.setPostalCode("20540");
+        otherAddress.setPostOffice("Turku");
+        otherAddress.setCountry("Finland");
+
+        other.setPostalAddress(otherAddress);
+
+        personRepository.saveAndFlush(other);
     }
 }

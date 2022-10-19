@@ -1,9 +1,35 @@
 type Query {
     byPersonalIdentityCode(pic: String!): Person
+    byName(name: String!): [Person]
     people: [Person]
+}
+
+type Mutation {
+    updatePhoneNumber(pic: String!, phoneNumber: String): Person
 }
 
 type Person {
     id: ID!
     lastname: String!
+    givenNames: String!
+    dateOfBirth: String!
+    dateOfDeath: String
+    sex: Sex!
+    pic: String!
+    phoneNumber: String
+    emailAddress: String
+    postalAddress: PostalAddress
+}
+
+enum Sex {
+    FEMALE, MALE, OTHER
+}
+
+type PostalAddress {
+    street: String!
+    number: String!
+    specifier: String
+    postalCode: String!
+    postOffice: String
+    country: String!
 }
